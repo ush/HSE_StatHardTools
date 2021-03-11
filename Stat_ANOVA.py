@@ -64,9 +64,11 @@ if (way == 2):
     mean /= N
     
     for j in range(columns):
+        mean_col = 0
         for i in range(rows):
             mean_col += table[i][j]
         mean_col /= rows
+#        print("Column ", (j + 1), " mean: ", mean_col)
         B_col += (mean_col - mean)**2
     
     for j in range(rows):
@@ -74,18 +76,18 @@ if (way == 2):
             Total_SS += (table[j][i] - mean)**2
         B_row += (np.mean(table[j]) - mean)**2
     
-    B_col *= columns
-    B_row *= rows
+    B_col *= rows
+    B_row *= columns
     Residual_SS = Total_SS - B_row - B_col
     
     F_row = ((columns - 1)*B_row)/Residual_SS
     F_col = ((rows - 1)*B_col)/Residual_SS
     
     print("Source           DF          SS             MS          F           p-value")
-    print("Row factor       ", (rows - 1), "    ", '%.3f'%B_row , "     ", '%.3f'%(B_row/(rows - 1)), "  ", '%.3f'%F_row)
-    print("Column factor    ", (rows - 1), "    ", '%.3f'%B_col , "   ", '%.3f'%(B_col/(columns - 1)),"", '%.3f'%F_col)
-    print("Residual         ", (rows - 1)*(columns - 1), "   ", '%.3f'%Residual_SS, "  ", '%.3f'%(Residual_SS/((rows - 1)*(columns - 1))))
-    print("Total            ", (rows*columns - 1), "    ", '%.3f'%Total_SS)
+    print("Row factor       ", (rows - 1), "  |  ", '%.3f'%B_row , "  |   ", '%.3f'%(B_row/(rows - 1)), " | ", '%.3f'%F_row)
+    print("Column factor    ", (rows - 1), "  |  ", '%.3f'%B_col , " |   ", '%.3f'%(B_col/(columns - 1)),"| ", '%.3f'%F_col)
+    print("Residual         ", (rows - 1)*(columns - 1), "  |  ", '%.3f'%Residual_SS, "  |   ", '%.3f'%(Residual_SS/((rows - 1)*(columns - 1))))
+    print("Total            ", (rows*columns - 1), "  |  ", '%.3f'%Total_SS)
     
     
 
